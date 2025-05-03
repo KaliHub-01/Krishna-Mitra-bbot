@@ -9,21 +9,22 @@ from telegram.ext import (
 )
 from dotenv import load_dotenv
 import requests
+import threading
 from flask import Flask
 
-app = Flask('')
+
+app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Krishna~Mitra is active bro 😎"
+    return "Krishna~Mitra Bot is running!"
 
-def run():
-    app.run(host='0.0.0.0', port=8080)
+def run_web():
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
-def keep_alive():
-    t = Thread(target=run)
-    t.start()
-
+# Start web server in a background thread
+threading.Thread(target=run_web).start()
 
 
 load_dotenv()
@@ -192,5 +193,4 @@ def main():
     app.run_polling()
 
 if __name__ == '__main__':
-    keep_alive()
     main()
