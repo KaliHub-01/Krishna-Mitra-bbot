@@ -9,6 +9,22 @@ from telegram.ext import (
 )
 from dotenv import load_dotenv
 import requests
+from flask import Flask
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Krishna~Mitra is active bro 😎"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
